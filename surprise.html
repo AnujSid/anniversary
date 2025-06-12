@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Surprise!</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+  html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+
+.gift-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  height: 200px;
+  gap: 2rem;
+}
+
+#gift-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  background: linear-gradient(to right, #4f0404, #fb5757);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+#gift-button:hover {
+  background-color: #e0559e;
+}
+
+#gift-animation-area {
+  flex: 1;
+  position: relative;
+  height: 100px;
+  overflow: visible;
+}
+
+.gift-box {
+  width: 150px;
+  min-height: 120px;
+  border: 2px dashed #ff69b4;
+  border-radius: 12px;
+  background: #fff0f5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding: 0.5rem;
+  box-shadow: 0 0 10px rgba(255,105,180,0.3);
+  gap: 0.3rem;
+}
+
+
+.gift-emoji {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) translateY(0);
+  font-size: 3rem;
+  opacity: 1;
+  animation: flyToBox 1.5s ease-out forwards;
+}
+
+@keyframes flyToBox {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(300px) translateY(-20px);
+    opacity: 1;
+  }
+}
+
+.gift-box {
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #ff69b4;
+  border-radius: 12px;
+  background: #fff0f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 0 10px rgba(255,105,180,0.3);
+}
+
+
+
+    .gift-emoji {
+      position: absolute;
+      left: 40%;
+      bottom: 0;
+      transform: translateX(-40%) translateY(0);
+      font-size: 8rem;
+      opacity: 0;
+      animation: riseUp 1.5s ease-out forwards;
+    }
+
+    @keyframes riseUp {
+      0% {
+        transform: translateX(-20%) translateY(100px);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-20%) translateY(-100px);
+        opacity: 0;
+      }
+    }
+
+    .sparkling-star {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.8;
+    }
+
+    @keyframes twinkle {
+      0% { transform: scale(0.8); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.8); opacity: 0.7; }
+    }
+
+@keyframes floatBox {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+#gift-box-area span {
+  font-size: 2rem;
+  margin: 0.2rem;
+  animation: popIn 0.4s ease-out;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+    footer {
+      margin-top: 2rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="love_quiz.html">Love Quiz</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="surprise.html" class="active">Surprise</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <main>
+    <section class="surprise-section">
+      <div id="countdown-container">
+        <h2 class="love-heading">❤️ We've been together since July 1, 2024 at 5:17 PM ❤️</h2>
+        <div id="countdown">
+          <span class="time-box"><span id="days">0</span><label>Days</label></span>
+          <span class="time-box"><span id="hours">0</span><label>Hours</label></span>
+          <span class="time-box"><span id="minutes">0</span><label>Minutes</label></span>
+          <span class="time-box"><span id="seconds">0</span><label>Seconds</label></span>
+        </div>
+      </div>
+    </section>
+
+
+
+<section style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem;">
+  <div>
+    <button id="gift-button">Open Gift 🎁</button>
+  </div>
+  <div id="gift-reveal-area" style="position: relative; min-width: 150px; height: 200px;"></div>
+    <div id="gift-animation-area"></div>
+<div id="gift-box-area" style="
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.5rem;
+  width: 250px;
+  height: 250px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(96, 30, 30, 0.3), inset 0 0 6px rgba(94, 30, 30, 0.4);
+  padding: 0.5rem;
+  justify-items: center;
+  align-items: center;
+">
+</div>
+<div id="gift-message" style="
+  display: none;
+  margin-top: 1rem;
+  margin-left: 6rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #651c1c;
+  animation: fadeIn 1.5s ease-in-out forwards;
+">
+  🎁 Aww! You've collected all the surprises! 💖
+</div>
+
+
+
+
+
+
+</section>
+
+
+  </main>
+
+  <footer>
+    <p>Made with ❤️ for you.</p>
+  </footer>
+
+  <script>
+
+
+    const firstMeetDate = new Date('2024-07-01T17:17:00').getTime();
+
+    function updateTogetherTime() {
+      const now = new Date().getTime();
+      const elapsed = now - firstMeetDate;
+
+      if (elapsed < 0) {
+        document.getElementById('countdown-container').innerHTML = "We haven't met yet!";
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((elapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+
+    updateTogetherTime();
+    const timer = setInterval(updateTogetherTime, 1000);
+
+    // 🎁 Gift Emoji Logic
+const giftEmojis = ['🍫', '🌹', '🍄', '🐠'];
+const giftButton = document.getElementById('gift-button');
+const animationArea = document.getElementById('gift-animation-area');
+const giftBox = document.getElementById('gift-box-area');
+const usedEmojis = new Set();
+
+giftButton.addEventListener('click', () => {
+  // Stop if already 4 unique gifts
+  if (usedEmojis.size >= 4) return;
+
+  // Filter to get unused emojis
+  const remainingEmojis = giftEmojis.filter(e => !usedEmojis.has(e));
+  if (remainingEmojis.length === 0) return;
+
+  // Disable button temporarily
+  giftButton.disabled = true;
+
+  const emoji = remainingEmojis[Math.floor(Math.random() * remainingEmojis.length)];
+  usedEmojis.add(emoji);
+
+  // Create and animate emoji
+  animationArea.innerHTML = '';
+  const gift = document.createElement('div');
+  gift.className = 'gift-emoji';
+  gift.textContent = emoji;
+  animationArea.appendChild(gift);
+
+  // 🎉 Confetti
+  confetti({
+    particleCount: 80,
+    spread: 60,
+    origin: { y: 0.6 },
+    colors: ['#ff4f81', '#ffd1dc', '#fff', '#ff69b4']
+  });
+
+  setTimeout(() => {
+    const placedGift = document.createElement('span');
+    placedGift.textContent = emoji;
+    placedGift.style.cssText = `
+      font-size: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `;
+    giftBox.appendChild(placedGift);
+
+    // Remove animation
+    if (animationArea.contains(gift)) {
+      animationArea.removeChild(gift);
+    }
+
+    if (usedEmojis.size >= 4) {
+      document.getElementById('gift-message').style.display = 'block';
+      giftButton.disabled = true;
+      giftButton.style.opacity = '0.6';
+      giftButton.style.cursor = 'not-allowed';
+    } else {
+      giftButton.disabled = false;
+    }
+  }, 1500);
+});
+
+
+
+    // ✨ Stars
+    const starSVG = `
+      <svg class="sparkling-star" width="30" height="30" viewBox="0 0 24 24" fill="#fff8dc" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2l2.4 6.8H22l-5.6 4.2L18.8 22 12 17.6 5.2 22l2.4-9L2 8.8h7.6z"/>
+      </svg>
+    `;
+
+    function createRandomStar() {
+      const div = document.createElement('div');
+      div.innerHTML = starSVG;
+      const star = div.firstElementChild;
+      star.style.top = Math.random() * 90 + 'vh';
+      star.style.left = Math.random() * 90 + 'vw';
+      const size = 15 + Math.random() * 20;
+      star.setAttribute('width', size);
+      star.setAttribute('height', size);
+      star.style.animation = 'twinkle ' + (1 + Math.random() * 2).toFixed(1) + 's ease-in-out infinite';
+      document.body.appendChild(star);
+    }
+
+    for (let i = 0; i < 30; i++) {
+      createRandomStar();
+    }
+  </script>
+</body>
+</html>

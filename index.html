@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Anniversary</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="love_quiz.html">Love Quiz</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="letter.html">Letter</a></li>
+        <li><a href="surprise.html">Surprise</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Add the 3D heart SVG here -->
+  <script>
+  const heartSVG = `
+    <svg
+      class="pumping-heart"
+      width="100"
+      height="100"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="3D heart"
+      style="position: fixed; pointer-events: none; overflow: visible;"
+    >
+      <defs>
+        <radialGradient id="grad3d" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#ff5a79" />
+          <stop offset="70%" stop-color="#c8002a" />
+          <stop offset="100%" stop-color="#80001a" />
+        </radialGradient>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#9b0026" flood-opacity="0.6" />
+        </filter>
+      </defs>
+
+      <path
+        fill="url(#grad3d)"
+        filter="url(#shadow)"
+        stroke="#640016"
+        stroke-width="0.5"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+           2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+           C13.09 3.81 14.76 3 16.5 3
+           19.58 3 22 5.42 22 8.5
+           c0 3.78-3.4 6.86-8.55 11.54
+           L12 21.35z"
+      />
+    </svg>
+  `;
+
+  const starSVG = `
+  <svg
+    class="sparkling-star"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    fill="#fff8dc"
+    xmlns="http://www.w3.org/2000/svg"
+    style="position: fixed; pointer-events: none;"
+  >
+    <path d="M12 2l2.4 6.8H22l-5.6 4.2L18.8 22 12 17.6 5.2 22l2.4-9L2 8.8h7.6z"/>
+  </svg>
+`;
+
+function createRandomStar() {
+  const div = document.createElement('div');
+  div.innerHTML = starSVG;
+  const star = div.firstElementChild;
+
+  // Random position
+  const top = Math.random() * 90;
+  const left = Math.random() * 90;
+  star.style.top = top + 'vh';
+  star.style.left = left + 'vw';
+
+  // Random size
+  const size = 15 + Math.random() * 20;
+  star.setAttribute('width', size);
+  star.setAttribute('height', size);
+
+  // Random twinkle animation
+  star.style.animation = 'twinkle ' + (1 + Math.random() * 2).toFixed(1) + 's ease-in-out infinite';
+  document.body.appendChild(star);
+}
+
+
+
+  function createRandomHeart() {
+    const div = document.createElement('div');
+    div.innerHTML = heartSVG;
+    const heart = div.firstElementChild;
+
+    // Random position on viewport
+    const top = Math.random() * 90; // 0% to 90% viewport height
+    const left = Math.random() * 90; // 0% to 90% viewport width
+    heart.style.top = top + 'vh';
+    heart.style.left = left + 'vw';
+    heart.style.zIndex = 0;
+
+    // Random size between 60 and 120 px
+    const size = 60 + Math.random() * 60;
+    heart.setAttribute('width', size);
+    heart.setAttribute('height', size);
+
+    // Random animation duration between 1.5s and 3s
+    heart.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+
+    document.body.appendChild(heart);
+  }
+
+  // Create 15 hearts randomly on page load
+  for (let i = 0; i < 25; i++) {
+    createRandomHeart();
+  }
+
+  for (let i = 0; i < 30; i++) {
+  createRandomStar();
+}
+
+</script>
+      
+
+
+      <!-- Slideshow container -->
+<div class="image-deck">
+  <div class="photo-card angle-center">
+    <img src="images/1.jpeg" alt="Memory 3" class="memory-card" />
+    <div class="caption-overlay angle-center">Our first GARBA night 💞</div>
+  </div>
+  
+  <div class="photo-card angle-left">
+    <img src="images/7.jpg" alt="Memory 1" class="memory-card " />
+   <div class="caption-overlay">Your day 💖</div>
+  </div>
+
+  <div class="photo-card angle-right">
+    <img src="images/6.jpeg" alt="Memory 2" class="memory-card" />
+    <div class="caption-overlay">Happy us 👩‍❤️‍👨</div>
+  </div>
+
+  <div class="photo-card angle-left">
+    <img src="images/2.jpeg" alt="Memory 1" class="memory-card " />
+   <div class="caption-overlay">Crazy you 😍</div>
+  </div>
+
+  <div class="photo-card angle-center">
+    <img src="images/3.jpeg" alt="Memory 2" class="memory-card" />
+    <div class="caption-overlay">Kokil kanthil Apsara 😘</div>
+  </div>
+
+  <div class="vertical-buttons">
+
+      <main>
+    <section class="welcome-section">
+      <h1>Happy Anniversary BABY 💝!</h1>
+      <p>Celebrating our love and memories.</p>
+  <button id="readMoreBtn">Love Quiz❤️</button>
+
+  <div class="music-control">
+    <button id="musicToggle">Play Music 🎵</button>
+    <audio id="bgMusic" loop>
+      <source src="romantic-music.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+  <div class="photo-card angle-right">
+    <img src="images/4.jpeg" alt="Memory 2" class="memory-card" />
+    <div class="caption-overlay">Date 🥰</div>
+  </div>
+
+</div>
+
+
+      <!-- Read More -->
+      
+    </section>
+
+    <!-- Heart animation container -->
+    <div id="heart-container"></div>
+  </main>
+
+  <footer>
+    <p>Made with ❤️ for you.</p>
+  </footer>
+
+  <script>
+
+        document.getElementById("readMoreBtn").addEventListener("click", function () {
+  window.location.href = "love_quiz.html";
+});
+    // Slideshow logic
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    function showSlides() {
+      slides.forEach(slide => (slide.style.display = 'none'));
+      slideIndex++;
+      if (slideIndex > slides.length) slideIndex = 1;
+      slides[slideIndex - 1].style.display = 'block';
+      setTimeout(showSlides, 3000); // Change every 3 seconds
+    }
+    showSlides();
+
+    // Read More button toggle
+    const readMoreBtn = document.getElementById('readMoreBtn');
+    const moreText = document.getElementById('moreText');
+    readMoreBtn.addEventListener('click', () => {
+      if (moreText.style.display === 'none') {
+        moreText.style.display = 'block';
+        readMoreBtn.textContent = 'Show Less 💕';
+      } else {
+        moreText.style.display = 'none';
+        readMoreBtn.textContent = 'Read More ❤️';
+      }
+    });
+
+    // Music toggle
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+    musicToggle.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.textContent = 'Pause Music ⏸️';
+      } else {
+        bgMusic.pause();
+        musicToggle.textContent = 'Play Music 🎵';
+      }
+    });
+
+
+
+
+    // Heart animation
+   const heartContainer = document.createElement('div');
+    document.body.appendChild(heartContainer);
+
+    function createBubblyHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('bubbly-heart');
+    heart.style.left = Math.random() * 100 + 'vw';      // random horizontal start
+    heart.style.animationDuration = 4 + Math.random() * 3 + 's';  // 4-7 seconds
+    heartContainer.appendChild(heart);
+
+    // Remove heart after animation finishes
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
+    }
+
+    // Create a new heart every 300ms
+    setInterval(createBubblyHeart, 300);
+    
+  </script>
+</body>
+
+</html>

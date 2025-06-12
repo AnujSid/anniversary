@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Scroll Message</title>
+      <link rel="stylesheet" href="style.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Great Vibes', cursive;
+    }
+
+.main-content {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scroll-container {
+    background: linear-gradient(to bottom, #ffffff, #ffffff);
+    background-size: cover;
+    width: 500px;
+    height: 0;
+    overflow: hidden;
+    border-top: 14px solid #4f0404;
+    border-bottom: 14px solid #4f0404;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    transition: height 2s ease, padding 2s ease;
+    padding: 0 25px;
+    border-radius: 10px;
+    z-index: 1;
+  }
+
+  .scroll-container.open {
+    height: 600px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+        z-index: 1;
+
+  }
+
+  .scroll-text {
+    font-size: 1.5rem;
+    color: #923c03;
+    text-align: center;
+    line-height: 1.9;
+  }
+
+  .button-container {
+  margin-top: 30px;
+  text-align: center;
+  position: relative; /* Required for z-index to take effect */
+  z-index: 10;
+}
+
+
+  .reveal-btn {
+    padding: 12px 28px;
+    font-size: 1.3rem;
+  background: linear-gradient(to right, #4f0404, #9d1a1a);
+    color: #fff6ea;
+    border: none;
+    cursor: pointer;
+      z-index: 10;
+  position: relative;
+    border-radius: 10px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    font-family: 'Great Vibes', cursive;
+    transition: background 0.3s ease;
+  }
+
+  .reveal-btn:hover {
+    background: linear-gradient(to right, rgb(230, 113, 113), #ff4141);
+  }
+  </style>
+</head>
+<body>
+    <header>
+        <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="love_quiz.html">Love Quiz</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="letter.html" class="active">Letter</a></li>
+            <li><a href="surprise.html">Surprise</a></li>
+        </ul>
+        </nav>
+    </header>
+
+<div id="passwordModal" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+">
+  <div style="
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    font-family: 'Great Vibes', cursive;
+    color: #923c03;
+  " class="modal-content">
+    <h2 style="margin-bottom: 20px;">Enter Secret Password</h2>
+    <input type="password" id="passwordInput" style="
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    " />
+    <br><br>
+    <button onclick="checkPassword()" style="
+      padding: 10px 20px;
+      font-size: 1.2rem;
+  background: linear-gradient(to right, #4f0404, #9d1a1a);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    ">Unlock</button>
+    <p id="errorText" style="color: red; margin-top: 10px; display: none;">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+
+<div class="main-content">
+  <div class="scroll-container" id="scroll">
+    <div class="scroll-text">
+      <p>My Dearest Love,</p>
+      <p>As the sun rises and sets, so does my heart beat with thoughts of you.</p>
+      <p>In times of joy and trials, your memory is my anchor and my wings.</p>
+      <p>With this parchment, know that my love is eternal, as strong as the seal of the crown that guards it.</p>
+      <p>Forever yours,</p>
+      <p>❤️</p>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="button-container">
+    <button class="reveal-btn" id="reveal-btn" onclick="toggleScroll()">Unroll Scroll</button>
+  </div>
+
+  <script>
+function toggleScroll() {
+  const scroll = document.getElementById('scroll');
+  const button = document.getElementById('reveal-btn');
+
+  if (!scroll.classList.contains('open')) {
+    // If scroll is closed, show password modal first
+    document.getElementById('passwordModal').style.display = 'flex';
+  } else {
+    // If already open, just roll it back
+    scroll.classList.remove('open');
+    button.textContent = 'Unroll Scroll';
+  }
+}
+
+
+function checkPassword() {
+  const input = document.getElementById('passwordInput').value;
+  const modal = document.getElementById('passwordModal');
+  const error = document.getElementById('errorText');
+  const correctPassword = "love"; // Change to your password
+  const scroll = document.getElementById('scroll');
+  const button = document.getElementById('reveal-btn');
+
+  if (input.toLowerCase() === correctPassword.toLowerCase()) {
+    modal.style.display = "none";
+    scroll.classList.add('open');
+    button.textContent = 'Roll Scroll';
+    error.style.display = 'none';
+    document.getElementById('passwordInput').value = '';
+  } else {
+    error.style.display = 'block';
+  }
+}
+
+
+
+    const heartSVG = `
+    <svg
+      class="pumping-heart"
+      width="100"
+      height="100"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="3D heart"
+      style="position: fixed; pointer-events: none; overflow: visible;"
+    >
+      <defs>
+        <radialGradient id="grad3d" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#ff5a79" />
+          <stop offset="70%" stop-color="#c8002a" />
+          <stop offset="100%" stop-color="#80001a" />
+        </radialGradient>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#9b0026" flood-opacity="0.6" />
+        </filter>
+      </defs>
+
+      <path
+        fill="url(#grad3d)"
+        filter="url(#shadow)"
+        stroke="#640016"
+        stroke-width="0.5"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+           2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+           C13.09 3.81 14.76 3 16.5 3
+           19.58 3 22 5.42 22 8.5
+           c0 3.78-3.4 6.86-8.55 11.54
+           L12 21.35z"
+      />
+    </svg>
+  `;
+
+  const starSVG = `
+  <svg
+    class="sparkling-star"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    fill="#fff8dc"
+    xmlns="http://www.w3.org/2000/svg"
+    style="position: fixed; pointer-events: none;"
+  >
+    <path d="M12 2l2.4 6.8H22l-5.6 4.2L18.8 22 12 17.6 5.2 22l2.4-9L2 8.8h7.6z"/>
+  </svg>
+`;
+
+function createRandomStar() {
+  const div = document.createElement('div');
+  div.innerHTML = starSVG;
+  const star = div.firstElementChild;
+
+  // Random position
+  const top = Math.random() * 90;
+  const left = Math.random() * 90;
+  star.style.top = top + 'vh';
+  star.style.left = left + 'vw';
+
+  // Random size
+  const size = 15 + Math.random() * 20;
+  star.setAttribute('width', size);
+  star.setAttribute('height', size);
+
+  // Random twinkle animation
+  star.style.animation = 'twinkle ' + (1 + Math.random() * 2).toFixed(1) + 's ease-in-out infinite';
+  document.body.appendChild(star);
+}
+
+
+
+  function createRandomHeart() {
+    const div = document.createElement('div');
+    div.innerHTML = heartSVG;
+    const heart = div.firstElementChild;
+
+    // Random position on viewport
+    const top = Math.random() * 90; // 0% to 90% viewport height
+    const left = Math.random() * 90; // 0% to 90% viewport width
+    heart.style.top = top + 'vh';
+    heart.style.left = left + 'vw';
+    heart.style.zIndex = 0;
+
+    // Random size between 60 and 120 px
+    const size = 60 + Math.random() * 60;
+    heart.setAttribute('width', size);
+    heart.setAttribute('height', size);
+
+    // Random animation duration between 1.5s and 3s
+    heart.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+
+    document.body.appendChild(heart);
+  }
+
+  // Create 15 hearts randomly on page load
+  for (let i = 0; i < 50; i++) {
+    createRandomHeart();
+  }
+
+  for (let i = 0; i < 30; i++) {
+  createRandomStar();
+}
+
+function releaseButterfly(x, y) {
+  const butterfly = document.createElement("div");
+  butterfly.className = "butterfly";
+
+  const body = document.createElement("div");
+  body.className = "butterfly-body";
+  body.textContent = "🦋";
+
+  butterfly.appendChild(body);
+
+  // Set the butterfly's start position based on click
+  butterfly.style.left = x + "px";
+  butterfly.style.top = y + "px";
+
+  document.body.appendChild(butterfly);
+
+  setTimeout(() => butterfly.remove(), 12000);
+}
+
+
+// Attach event listener to release on click
+// Only release butterfly if modal is not visible
+document.addEventListener("click", (e) => {
+  const modal = document.getElementById("passwordModal");
+  const modalStyle = window.getComputedStyle(modal);
+
+  if (modalStyle.display !== "flex") {
+    releaseButterfly(e.clientX, e.clientY);
+  }
+});
+
+
+// Close modal when clicking outside modal content
+// Click outside modal-content closes modal
+document.getElementById('passwordModal').addEventListener('click', function(event) {
+  const modalContent = document.querySelector('.modal-content');
+
+  if (!modalContent.contains(event.target)) {
+    this.style.display = 'none';
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('errorText').style.display = 'none';
+  }
+});
+
+// Prevent clicks inside modal-content from closing the modal
+document.querySelector('.modal-content').addEventListener('click', function(event) {
+  event.stopPropagation(); // Prevent bubbling to parent
+});
+
+
+
+  </script>
+</body>
+</html>
