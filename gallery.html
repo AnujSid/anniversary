@@ -48,7 +48,7 @@
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="love_quiz.html">Love Quiz</a></li>
+        <li><a href="love_quiz.html">Quiz</a></li>
         <li><a href="gallery.html" class="active">Gallery</a></li>
         <li><a href="letter.html">Letter</a></li>
         <li><a href="surprise.html">Surprise</a></li>
@@ -154,10 +154,21 @@ function createRandomStar() {
   for (let i = 0; i < 50; i++) {
   createRandomStar();
 }
+
+ const bgMusic = document.getElementById("bgMusic");
+
+  // Try auto play if the user previously enabled it
+  const musicEnabled = localStorage.getItem("musicEnabled");
+
+  if (musicEnabled === "true") {
+    bgMusic.volume = 0.8;
+    bgMusic.play().catch(err => {
+      console.warn("Browser blocked autoplay:", err);
+    });
+  }
+
+  
   </script>
 
-  <footer>
-    <p>Made with ❤️ for you.</p>
-  </footer>
 </body>
 </html>

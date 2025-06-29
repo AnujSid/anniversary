@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Story</title>
+  <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="our-story.html" class="active">Our Story</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="messages.html">Messages</a></li>
+        <li><a href="surprise.html">Surprise</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script>
+  const heartSVG = `
+    <svg
+      class="pumping-heart"
+      width="100"
+      height="100"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="3D heart"
+      style="position: fixed; pointer-events: none; overflow: visible;"
+    >
+      <defs>
+        <radialGradient id="grad3d" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#ff5a79" />
+          <stop offset="70%" stop-color="#c8002a" />
+          <stop offset="100%" stop-color="#80001a" />
+        </radialGradient>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#9b0026" flood-opacity="0.6" />
+        </filter>
+      </defs>
+
+      <path
+        fill="url(#grad3d)"
+        filter="url(#shadow)"
+        stroke="#640016"
+        stroke-width="0.5"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+           2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+           C13.09 3.81 14.76 3 16.5 3
+           19.58 3 22 5.42 22 8.5
+           c0 3.78-3.4 6.86-8.55 11.54
+           L12 21.35z"
+      />
+    </svg>
+  `;
+
+  function createRandomHeart() {
+    const div = document.createElement('div');
+    div.innerHTML = heartSVG;
+    const heart = div.firstElementChild;
+
+    // Random position on viewport
+    const top = Math.random() * 90; // 0% to 90% viewport height
+    const left = Math.random() * 90; // 0% to 90% viewport width
+    heart.style.top = top + 'vh';
+    heart.style.left = left + 'vw';
+    heart.style.zIndex = 0;
+
+    // Random size between 60 and 120 px
+    const size = 60 + Math.random() * 60;
+    heart.setAttribute('width', size);
+    heart.setAttribute('height', size);
+
+    // Random animation duration between 1.5s and 3s
+    heart.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+
+    document.body.appendChild(heart);
+  }
+
+  // Create 15 hearts randomly on page load
+  for (let i = 0; i < 25; i++) {
+    createRandomHeart();
+  }
+</script>
+
+  <main>
+    <section class="story-section">
+      <h1>Our Story</h1>
+      <div class="timeline">
+        <div class="event">
+          <h3>How We Met</h3>
+          <p>We met at the coffee shop on a rainy day in 2018. It was love at first sight.</p>
+        </div>
+        <div class="event">
+          <h3>First Date</h3>
+          <p>Our first date was at that little Italian restaurant downtown. We talked for hours.</p>
+        </div>
+        <div class="event">
+          <h3>Travel Adventures</h3>
+          <p>We explored the mountains together in 2019, making unforgettable memories.</p>
+        </div>
+        <div class="event">
+          <h3>Anniversary Day</h3>
+          <p>Every year since, we celebrate our love and the life we build together.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with ❤️ for you.</p>
+  </footer>
+</body>
+</html>

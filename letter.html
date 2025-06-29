@@ -36,13 +36,14 @@
     z-index: 1;
   }
 
-  .scroll-container.open {
-    height: 600px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-        z-index: 1;
+.scroll-container.open {
+  height: 600px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  overflow-y: auto; /* <-- Add this */
+  z-index: 1;
+}
 
-  }
 
   .scroll-text {
     font-size: 1.5rem;
@@ -77,20 +78,56 @@
   .reveal-btn:hover {
     background: linear-gradient(to right, rgb(230, 113, 113), #ff4141);
   }
+
+  @keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
   </style>
 </head>
 <body>
+    <audio id="openScrollSound" src="audio/scroll.mp3" preload="auto"></audio>
+<audio id="unlockSound" src="audio/chime.mp3" preload="auto"></audio>
+<audio id="errorSound" src="audio/wrong.mp3" preload="auto"></audio>
+<audio id="popupSound" src="audio/popup.mp3" preload="auto"></audio>
+<audio id="closeScrollSound" src="audio/scroll.mp3" preload="auto"></audio>
+
     <header>
         <nav>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="love_quiz.html">Love Quiz</a></li>
+            <li><a href="love_quiz.html">Quiz</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="letter.html" class="active">Letter</a></li>
             <li><a href="surprise.html">Surprise</a></li>
         </ul>
         </nav>
     </header>
+
+    <div id="butterflyHint" style="
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 245, 235, 0.95);
+  border: 2px solid #ce7d7d;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.6rem;
+  color: #923c03;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  animation: fadeIn 1s ease-in-out;
+  z-index: 9999;
+">
+  ✨ Click anywhere to let the butterfly inside me fly... 🦋
+</div>
+
 
 <div id="passwordModal" style="
   position: fixed;
@@ -131,6 +168,9 @@
       cursor: pointer;
     ">Unlock</button>
     <p id="errorText" style="color: red; margin-top: 10px; display: none;">Incorrect password. Try again.</p>
+<p id="hintText" style="color: #925003; margin-top: 8px; display: none; font-style: italic;">
+  Hint: You have same password😉
+</p>
   </div>
 </div>
 
@@ -138,16 +178,22 @@
 <div class="main-content">
   <div class="scroll-container" id="scroll">
     <div class="scroll-text">
-      <p>My Dearest Love,</p>
-      <p>As the sun rises and sets, so does my heart beat with thoughts of you.</p>
-      <p>In times of joy and trials, your memory is my anchor and my wings.</p>
-      <p>With this parchment, know that my love is eternal, as strong as the seal of the crown that guards it.</p>
+      <p>To My Cutieee 🦋</p>
+      <p>This is the most heartfelt way I could express how deeply I am in love with you😘. Kyuki tum jaanti ho ki mai likhne aur bolne me kitna kharab hu so I made this for you</p>
+      <p>It’s been 1 year since we began this beautiful journey together, and I still feel the same love when I am with you❤️. 
+      Tumhare wo cute-cute expresssion dekh ke mere andar waise hi butterfly udti hai jaisi is screen pe click krne se udti hai(click krke dekho).
+      Tumhare saath maine zindagi ke woh sabhi emotions experience kiye hain jo ek insaan kar sakta hai — chahe woh khushi mein saath hansna ho, pyaar mein kho jaana ho, dukh mein rona ho, ya phir gusse mein ek dusre se lad jaana... sab kuch. 
+      Tum jab hasti ho na, to aur bhi khoobsurat lagti ho — aur tumhare wo bunny wale cute se daant dekh kar ek alag hi khushi hoti hai🐰. 
+      But in sab chijo ke upar tumhare saath hasna, tumhari baatein sun na aur tumhari bakchodi me hissa lena are my favorite things😚. I wish ki tumko duniya ki saari khushiya mile aur tumhari un khshiyo me mai bhi saath rahu😉</p>
+      <p>I still remember that day jab hum mall mein ghoomne gaye the… I saw a watch that I really liked, but maine nhi liya, because it was expensive. Mujhe laga, chhodo, abhi zarurat nahi hai. But you.....tumne woh watch mere liye khareed li...despite the fact that you weren’t even earning at that time. That moment spoke volumes. It wasn't about the watch... it was about your heart, tumhara pyaar, tumhari intention, aur tumhara sacrifice. You made me feel seen, valued, and deeply lovedl💞.</p>
+      <p>I know ki mai kaafi galtiyan karta hu aur tumko gussa dilata hu and you deserve better(lekin isi se kaam chalao) but I promise I will try to become the best for you💖. Bas isi tarah jab bhi hum Mandir se gujre tum mere pith pe haath rakh ke mere lie bhi Bhagwan se aashirvad maangti rhna.</p>
+      <p>Mujhe kabhi kisi ne is tarah pyaar nahi kiya jaise tumne kiya hai. Tum har chhoti badi cheez mere liye karti ho, meri care karti ho — bina mere bole. Jab bhi mereko double thoughts hue hai, you are always there to resolve that. Without you I don't think I am able to make it till this day, so thank you for all the things🥺</p>
+      <p>I Love You Baby💗</p>
       <p>Forever yours,</p>
       <p>❤️</p>
     </div>
   </div>
   </div>
-
 
   <div class="button-container">
     <button class="reveal-btn" id="reveal-btn" onclick="toggleScroll()">Unroll Scroll</button>
@@ -157,25 +203,50 @@
 function toggleScroll() {
   const scroll = document.getElementById('scroll');
   const button = document.getElementById('reveal-btn');
+  const popupSound = document.getElementById('popupSound');
+    popupSound.volume = 0.3;
+  const closeSound = document.getElementById('closeScrollSound');
 
   if (!scroll.classList.contains('open')) {
-    // If scroll is closed, show password modal first
+    // Play popup sound when showing modal
+    popupSound.play();
     document.getElementById('passwordModal').style.display = 'flex';
   } else {
-    // If already open, just roll it back
+    // Play scroll close sound
+    closeSound.play();
     scroll.classList.remove('open');
     button.textContent = 'Unroll Scroll';
   }
 }
+
+document.addEventListener("click", (e) => {
+  const modal = document.getElementById("passwordModal");
+  const modalStyle = window.getComputedStyle(modal);
+  const hint = document.getElementById("butterflyHint");
+
+  if (hint) {
+    hint.style.animation = 'fadeOut 0.8s ease-in-out forwards';
+    setTimeout(() => hint.remove(), 800);
+  }
+
+  if (modalStyle.display !== "flex") {
+    releaseButterfly(e.clientX, e.clientY);
+  }
+});
 
 
 function checkPassword() {
   const input = document.getElementById('passwordInput').value;
   const modal = document.getElementById('passwordModal');
   const error = document.getElementById('errorText');
-  const correctPassword = "love"; // Change to your password
+  const correctPassword = "3112p";
   const scroll = document.getElementById('scroll');
   const button = document.getElementById('reveal-btn');
+
+  const unlockSound = document.getElementById('unlockSound');
+  unlockSound.volume = 0.6;
+  const errorSound = document.getElementById('errorSound');
+  const openSound = document.getElementById('openScrollSound');
 
   if (input.toLowerCase() === correctPassword.toLowerCase()) {
     modal.style.display = "none";
@@ -183,49 +254,17 @@ function checkPassword() {
     button.textContent = 'Roll Scroll';
     error.style.display = 'none';
     document.getElementById('passwordInput').value = '';
+    unlockSound.play();
+    setTimeout(() => openSound.play(), 500); // Slight delay after unlock
   } else {
     error.style.display = 'block';
+    document.getElementById('hintText').style.display = 'block';
+    errorSound.play();
   }
 }
 
 
 
-    const heartSVG = `
-    <svg
-      class="pumping-heart"
-      width="100"
-      height="100"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="3D heart"
-      style="position: fixed; pointer-events: none; overflow: visible;"
-    >
-      <defs>
-        <radialGradient id="grad3d" cx="50%" cy="35%" r="70%">
-          <stop offset="0%" stop-color="#ff5a79" />
-          <stop offset="70%" stop-color="#c8002a" />
-          <stop offset="100%" stop-color="#80001a" />
-        </radialGradient>
-        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#9b0026" flood-opacity="0.6" />
-        </filter>
-      </defs>
-
-      <path
-        fill="url(#grad3d)"
-        filter="url(#shadow)"
-        stroke="#640016"
-        stroke-width="0.5"
-        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
-           2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
-           C13.09 3.81 14.76 3 16.5 3
-           19.58 3 22 5.42 22 8.5
-           c0 3.78-3.4 6.86-8.55 11.54
-           L12 21.35z"
-      />
-    </svg>
-  `;
 
   const starSVG = `
   <svg
@@ -261,36 +300,6 @@ function createRandomStar() {
   star.style.animation = 'twinkle ' + (1 + Math.random() * 2).toFixed(1) + 's ease-in-out infinite';
   document.body.appendChild(star);
 }
-
-
-
-  function createRandomHeart() {
-    const div = document.createElement('div');
-    div.innerHTML = heartSVG;
-    const heart = div.firstElementChild;
-
-    // Random position on viewport
-    const top = Math.random() * 90; // 0% to 90% viewport height
-    const left = Math.random() * 90; // 0% to 90% viewport width
-    heart.style.top = top + 'vh';
-    heart.style.left = left + 'vw';
-    heart.style.zIndex = 0;
-
-    // Random size between 60 and 120 px
-    const size = 60 + Math.random() * 60;
-    heart.setAttribute('width', size);
-    heart.setAttribute('height', size);
-
-    // Random animation duration between 1.5s and 3s
-    heart.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
-
-    document.body.appendChild(heart);
-  }
-
-  // Create 15 hearts randomly on page load
-  for (let i = 0; i < 50; i++) {
-    createRandomHeart();
-  }
 
   for (let i = 0; i < 30; i++) {
   createRandomStar();
@@ -344,7 +353,6 @@ document.getElementById('passwordModal').addEventListener('click', function(even
 document.querySelector('.modal-content').addEventListener('click', function(event) {
   event.stopPropagation(); // Prevent bubbling to parent
 });
-
 
 
   </script>

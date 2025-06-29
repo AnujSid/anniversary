@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Messages</title>
+  <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="love_quiz.html">Love Quiz</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="messages.html" class="active">Messages</a></li>
+        <li><a href="surprise.html">Surprise</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script>
+    const heartSVG = `
+    <svg
+      class="pumping-heart"
+      width="100"
+      height="100"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="3D heart"
+      style="position: fixed; pointer-events: none; overflow: visible;"
+    >
+      <defs>
+        <radialGradient id="grad3d" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#ff5a79" />
+          <stop offset="70%" stop-color="#c8002a" />
+          <stop offset="100%" stop-color="#80001a" />
+        </radialGradient>
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#9b0026" flood-opacity="0.6" />
+        </filter>
+      </defs>
+
+      <path
+        fill="url(#grad3d)"
+        filter="url(#shadow)"
+        stroke="#640016"
+        stroke-width="0.5"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+           2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+           C13.09 3.81 14.76 3 16.5 3
+           19.58 3 22 5.42 22 8.5
+           c0 3.78-3.4 6.86-8.55 11.54
+           L12 21.35z"
+      />
+    </svg>
+  `;
+
+  const starSVG = `
+  <svg
+    class="sparkling-star"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    fill="#fff8dc"
+    xmlns="http://www.w3.org/2000/svg"
+    style="position: fixed; pointer-events: none;"
+  >
+    <path d="M12 2l2.4 6.8H22l-5.6 4.2L18.8 22 12 17.6 5.2 22l2.4-9L2 8.8h7.6z"/>
+  </svg>
+`;
+
+function createRandomStar() {
+  const div = document.createElement('div');
+  div.innerHTML = starSVG;
+  const star = div.firstElementChild;
+
+  // Random position
+  const top = Math.random() * 90;
+  const left = Math.random() * 90;
+  star.style.top = top + 'vh';
+  star.style.left = left + 'vw';
+
+  // Random size
+  const size = 15 + Math.random() * 20;
+  star.setAttribute('width', size);
+  star.setAttribute('height', size);
+
+  // Random twinkle animation
+  star.style.animation = 'twinkle ' + (1 + Math.random() * 2).toFixed(1) + 's ease-in-out infinite';
+  document.body.appendChild(star);
+}
+
+
+
+  function createRandomHeart() {
+    const div = document.createElement('div');
+    div.innerHTML = heartSVG;
+    const heart = div.firstElementChild;
+
+    // Random position on viewport
+    const top = Math.random() * 90; // 0% to 90% viewport height
+    const left = Math.random() * 90; // 0% to 90% viewport width
+    heart.style.top = top + 'vh';
+    heart.style.left = left + 'vw';
+    heart.style.zIndex = 0;
+
+    // Random size between 60 and 120 px
+    const size = 60 + Math.random() * 60;
+    heart.setAttribute('width', size);
+    heart.setAttribute('height', size);
+
+    // Random animation duration between 1.5s and 3s
+    heart.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+
+    document.body.appendChild(heart);
+  }
+
+  // Create 15 hearts randomly on page load
+  // for (let i = 0; i < 25; i++) {
+  //   createRandomHeart();
+  // }
+
+  for (let i = 0; i < 30; i++) {
+  createRandomStar();
+}
+  // const loveNotes = [
+  //   "You're my favorite person 💗",
+  //   "Forever & always 💞",
+  //   "You're my sunshine ☀️",
+  //   "I love you more every day ❤️",
+  //   "My heart beats for you 💓",
+  //   "Endless love 💫",
+  //   "With you, everything feels right 🌸",
+  //   "You're the smile in my soul 😘",
+  //   "Love you to the stars 🌟",
+  //   "My world, my love 🌍💖"
+  // ];
+
+  // document.addEventListener("click", (e) => {
+  //   const note = document.createElement("div");
+  //   note.className = "love-note";
+  //   note.textContent = loveNotes[Math.floor(Math.random() * loveNotes.length)];
+
+  //   note.style.left = e.clientX + "px";
+  //   note.style.top = e.clientY + "px";
+
+  //   document.body.appendChild(note);
+
+  //   // Remove after animation
+  //   setTimeout(() => {
+  //     note.remove();
+  //   }, 3000);
+  // });
+
+
+  
+function releaseButterfly(x, y) {
+  const butterfly = document.createElement("div");
+  butterfly.className = "butterfly";
+
+  const body = document.createElement("div");
+  body.className = "butterfly-body";
+  body.textContent = "🦋";
+
+  butterfly.appendChild(body);
+
+  // Set the butterfly's start position based on click
+  butterfly.style.left = x + "px";
+  butterfly.style.top = y + "px";
+
+  document.body.appendChild(butterfly);
+
+  setTimeout(() => butterfly.remove(), 12000);
+}
+
+
+// Attach event listener to release on click
+document.addEventListener("click", (e) => {
+  releaseButterfly(e.clientX, e.clientY);
+});
+
+window.onload = function () {
+  let isDragging = false;
+  let startY = 0;
+  let startTop = 0;
+  const envelope = document.querySelector('.envelope');
+  const letter = document.querySelector('.letter');
+
+  // When envelope is clicked: peek letter
+  window.openEnvelope = function () {
+    envelope.classList.toggle('open');
+  };
+
+  // Enable dragging after it's peeked
+  letter.addEventListener('mousedown', (e) => {
+    if (!envelope.classList.contains('open')) return;
+
+    isDragging = true;
+    startY = e.clientY;
+    startTop = parseInt(window.getComputedStyle(letter).top);
+    letter.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const dy = e.clientY - startY;
+    let newTop = startTop + dy;
+
+    // Clamp values: don't push back in or drag too far
+    newTop = Math.min(400, newTop);  // bottom limit
+    newTop = Math.max(-800, newTop); // top limit (fully out)
+
+    letter.style.top = `${newTop}px`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    letter.style.cursor = 'grab';
+  });
+};
+
+
+  
+</script>
+
+  <main>
+    <section class="message-section">
+    </section>
+
+  <section class="envelope-container" onclick="openEnvelope()">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="body"></div>
+      <div class="letter">
+  <p>My Dearest Love,</p>
+  <p>
+    Every moment spent with you feels like a page from a beautiful story. Your smile lights up my days, and your presence fills my heart with peace. I treasure every memory we've made and look forward to a future filled with laughter, adventures, and endless love.
+  </p>
+  <p>
+    No matter what life brings, always remember: you are deeply cherished, and my love for you knows no bounds.
+  </p>
+  <p>Forever yours, <br/>❤️</p>
+</div>
+
+</div>
+    </div>
+  </section>
+
+
+
+  </main>
+
+</body>
+</html>

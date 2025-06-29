@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     .game-container {
-      background: #ffffff;
+  background: rgba(255, 245, 235, 0.95);
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
       padding: 2rem;
@@ -34,7 +34,7 @@
     .question {
       font-size: 1.2rem;
       margin-bottom: 1rem;
-      color: #333;
+      color: #923c03 !important;
     }
     .options button {
       display: block;
@@ -81,7 +81,8 @@
   padding: 0.8rem 1.5rem;
   margin: 0.5rem;
   border-radius: 50px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-family: 'Dancing Script', cursive !important;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(255, 105, 135, 0.3);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
@@ -92,17 +93,35 @@
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(255, 105, 135, 0.5);
 }
-
+    #fireworks-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      pointer-events: none;
+    }
 
 
   </style>
 </head>
+
+
 <body>
+    <div id="fireworks-container"></div>
+
+  <audio id="clickSound" src="audio/m2.mp3" preload="auto"></audio>
+  <audio id="correctSound" src="audio/correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="audio/wrong.mp3" preload="auto"></audio>
+<audio id="resultSound" src="audio/firworks.mp3" preload="auto"></audio>
+
+
   <header>
     <nav>
       <ul class="nav-links">
         <li><a href="index.html" >Home</a></li>
-        <li><a href="love_quiz.html" class="active">Love Quiz</a></li>
+        <li><a href="love_quiz.html" class="active">Quiz</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="letter.html">Letter</a></li>
         <li><a href="surprise.html">Surprise</a></li>
@@ -112,14 +131,20 @@
   <div class="main-content">
   <div class="game-container">
     <div class="quiz-buttons" style="margin-bottom: 1rem;">
-  <button onclick="startQuiz('her')">How well do I know you?</button>
-  <button onclick="startQuiz('me')">How well do you know me?</button>
+  <button onclick="playClickSound(); startQuiz('her')">How well does Anuj know Pragati?</button>
+  <button onclick="playClickSound(); startQuiz('me')">How well does Pragati know Anuj?</button>
 </div>
 <div id="question" class="question"></div>
 <div id="options" class="options"></div>
 <div id="score" class="score"></div>
 
   </div>
+    <script src="https://unpkg.com/fireworks-js@2.10.4/dist/index.umd.js"></script>
+  <script>
+    const container = document.getElementById('fireworks-container');
+    const fireworks = new Fireworks.default(container);
+    window.fireworks = fireworks;
+  </script>
 
   <script>
 
@@ -187,7 +212,7 @@ const herFavorites = [
   { question: "What's your go-to comfort snack?", correct: "Chocolate 🍫", options: ["Chips 🍟", "Chocolate 🍫", "Ice Cream 🍨", "Cookies 🍪"] },
   { question: "Which your melts their heart?", correct: "Puppy 🐶", options: ["Puppy 🐶", "Kitten 🐱", "Bunny 🐰", "Panda 🐼"] },
   { question: "What's your favorite way to relax?", correct: "Cuddling 🤗", options: ["Music 🎶", "Netflix 📺", "Cuddling 🤗", "Sleeping 😴"] },
-  { question: "What's your ideal weekend plan?", correct: "Movie night 🎬", options: ["Hiking 🥾", "Clubbing 💃", "Movie night 🎬", "Shopping 🛍️"] },
+  { question: "What's your ideal weekend plan?", correct: "Shopping 🛍️", options: ["Hiking 🥾", "Clubbing 💃", "Movie night 🎬", "Shopping 🛍️"] },
   { question: "What kind of gift makes you smile?", correct: "Handwritten letter 💌", options: ["Handwritten letter 💌", "Perfume 🌸", "Plush toy 🧸", "Dreess 💃"] },
   { question: "Which season do you love the most?", correct: "Spring 🌸", options: ["Summer ☀️", "Winter ❄️", "Spring 🌸", "Autumn 🍂"] },
   { question: "What's your dream date?", correct: "Beach walk 🌅", options: ["Candlelight dinner 🕯️", "Beach walk 🌅", "Movie night 🎥", "Stargazing 🌟"] },
@@ -204,11 +229,11 @@ const herFavorites = [
   { question: "My go-to drink?", correct: "Chai ☕", options: ["Cold Coffee 🧋", "Chai ☕", "Coke 🥤", "Smoothie 🍓"] },
   { question: "What's my favorite game?", correct: "Cricket 🏏", options: ["FIFA ⚽", "Cricket 🏏", "Badminton 🏸", "GTA 🚘"] },
   { question: "What scares me the most?", correct: "Ghosts 👻", options: ["Ghosts 👻", "Snakes 🐍", "Darkness 🌑", "Blood 🩸"] },
-  { question: "What's my favorite street food?", correct: "Aalo ka paratha 🍛", options: ["Aalo ka paratha 🍛", "Pani Puri 🥵", "Samosa 🥟", "Momos 🥢"] },
+  { question: "What's my favorite food?", correct: "Aalo ka paratha 🍛", options: ["Aalo ka paratha 🍛", "Pani Puri 🥵", "Samosa 🥟", "Momos 🥢"] },
   { question: "My ideal way to relax?", correct: "Sleeping 😴", options: ["Music 🎧", "Netflix 📺", "Gaming 🎮", "Sleeping 😴"] },
   { question: "Which festival do I love the most?", correct: "Diwali 🪔", options: ["Holi 🌈", "Diwali 🪔", "Christmas 🎄", "RakshaBandhan 💫"] },
   { question: "My favorite childhood cartoon?", correct: "Shinchan 😜", options: ["Ninja Hatori 🥷", "Tom & Jerry 🐭🐱", "Doraemon 🤖", "Shinchan 😜"] },
-  { question: "What's my favorite dessert?", correct: "Gulab Jamun 🍮", options: ["Ice Cream 🍨", "Cake 🍰", "Gulab Jamun 🍮", "Jalebi 🍯"] },
+  { question: "What's my favorite dessert?", correct: "Ice Cream 🍨", options: ["Ice Cream 🍨", "Cake 🍰", "Gulab Jamun 🍮", "Jalebi 🍯"] },
   { question: "What kind of music do I like?", correct: "Bhojpuri 🎶", options: ["English 🎸", "Bhojpuri 🎶", "Classical 🎻", "Bollywood 🎤"] },
   { question: "My favorite subject in school?", correct: "Math ➗", options: ["History 📚", "Math ➗", "Science 🔬", "Art 🎨"] },
   { question: "My favorite mode of travel?", correct: "Car 🚗", options: ["Car 🚗", "Bike 🏍️", "Train 🚆", "Flight ✈️"] },
@@ -251,14 +276,22 @@ function loadQuestion() {
     btn.textContent = opt;
 
     btn.onclick = () => {
-      const isCorrect = opt === currentQ.correct;
-      if (isCorrect) {
-        btn.style.backgroundColor = '#a5d6a7'; // Green
-        correctCount++;
-        for (let i = 0; i < 10; i++) floatHeart();
-      } else {
-        btn.style.backgroundColor = '#ef9a9a'; // Red
-      }
+const correctSound = document.getElementById('correctSound');
+const wrongSound = document.getElementById('wrongSound');
+
+const isCorrect = opt === currentQ.correct;
+if (isCorrect) {
+  btn.style.backgroundColor = '#a5d6a7'; // Green
+  correctSound.currentTime = 0;
+  correctSound.play();
+  correctCount++;
+  for (let i = 0; i < 10; i++) floatHeart();
+} else {
+  btn.style.backgroundColor = '#ef9a9a'; // Red
+  wrongSound.currentTime = 0;
+  wrongSound.play();
+}
+
 
       // Disable all buttons after an answer is clicked
       const allButtons = optionsEl.querySelectorAll('button');
@@ -289,18 +322,38 @@ function loadQuestion() {
 }
 
 
-function showScore() {
-  const total = getCurrentQuiz().length;
-  const percent = Math.round((correctCount / total) * 100);
-  questionEl.style.display = 'none';
-  optionsEl.style.display = 'none';
-  scoreEl.innerHTML = `
-    You got ${correctCount} out of ${total} correct! 💖<br>
-    That's <strong>${percent}%</strong> – That's how well ${
-      activeQuiz === 'her' ? 'I know you' : 'you know me'
-    } 😘
-  `;
+
+    // Trigger fireworks only after quiz ends
+    function showScore() {
+      const total = getCurrentQuiz().length;
+      const percent = Math.round((correctCount / total) * 100);
+      questionEl.style.display = 'none';
+      optionsEl.style.display = 'none';
+      scoreEl.innerHTML = `
+        You got ${correctCount} out of ${total} correct! 💖<br>
+        That's <strong>${percent}%</strong> – That's how well ${
+          activeQuiz === 'her' ? 'I know you' : 'you know me'
+        } 😘
+      `;
+
+      const resultSound = document.getElementById('resultSound');
+      resultSound.currentTime = 0;
+      resultSound.play().catch(err => console.warn("Result sound autoplay was blocked:", err));
+
+      // Start fireworks
+      fireworks.start();
+      setTimeout(() => fireworks.stop(), 5000);
+    }
+
+function playClickSound() {
+  const clickSound = document.getElementById('clickSound');
+  clickSound.currentTime = 0;
+  clickSound.play().catch(err => {
+    console.warn("Click sound autoplay was blocked:", err);
+  });
 }
+
+
   </script>
 </body>
 </html>

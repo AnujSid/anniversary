@@ -68,15 +68,7 @@
 }
 
 
-.gift-emoji {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) translateY(0);
-  font-size: 3rem;
-  opacity: 1;
-  animation: flyToBox 1.5s ease-out forwards;
-}
+
 
 @keyframes flyToBox {
   0% {
@@ -89,18 +81,7 @@
   }
 }
 
-.gift-box {
-  width: 120px;
-  height: 120px;
-  border: 2px dashed #ff69b4;
-  border-radius: 12px;
-  background: #fff0f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  box-shadow: 0 0 10px rgba(255,105,180,0.3);
-}
+
 
 
 
@@ -161,6 +142,33 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+.final-message {
+  display: none;
+  margin-left: 18rem;
+  text-align: center;
+  background: rgba(255, 245, 235, 0.95);
+  border: 2px solid #ce7d7d;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #923c03 !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  animation: fadeInGift 1.2s ease-in-out forwards;
+}
+
+@keyframes fadeInGift {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 
 
@@ -172,11 +180,17 @@
   </style>
 </head>
 <body>
+  <audio id="sound-open" src="audio/chime.mp3" preload="auto"></audio>
+<audio id="sound-fly" src="audio/shine.mp3" preload="auto"></audio>
+<audio id="sound-pop" src="audio/sparkle.mp3" preload="auto"></audio>
+<audio id="sound-popup" src="audio/popup.mp3" preload="auto"></audio>
+
+
   <header>
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="love_quiz.html">Love Quiz</a></li>
+        <li><a href="love_quiz.html">Quiz</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="letter.html">Letter</a></li>
         <li><a href="surprise.html" class="active">Surprise</a></li>
@@ -201,10 +215,13 @@
 
 
 
-<section style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem;">
+<section style="display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem; margin-top: 5rem;">
   <div>
     <button id="gift-button">Open Gift 🎁</button>
   </div>
+  <div id="gift-message" class="final-message">
+  🎁 Aww! You've collected all the surprises! 💖
+</div>
   <div id="gift-reveal-area" style="position: relative; min-width: 150px; height: 200px;"></div>
     <div id="gift-animation-area"></div>
 <div id="gift-box-area" style="
@@ -215,7 +232,9 @@
   width: 250px;
   height: 250px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #ce7d7d;
+  border-radius: 12px;
+  background: rgba(255, 245, 235, 0.95);
   backdrop-filter: blur(8px);
   box-shadow: 0 4px 10px rgba(96, 30, 30, 0.3), inset 0 0 6px rgba(94, 30, 30, 0.4);
   padding: 0.5rem;
@@ -223,17 +242,7 @@
   align-items: center;
 ">
 </div>
-<div id="gift-message" style="
-  display: none;
-  margin-top: 1rem;
-  margin-left: 6rem;
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.8rem;
-  color: #651c1c;
-  animation: fadeIn 1.5s ease-in-out forwards;
-">
-  🎁 Aww! You've collected all the surprises! 💖
-</div>
+
 
 
 
@@ -245,9 +254,6 @@
 
   </main>
 
-  <footer>
-    <p>Made with ❤️ for you.</p>
-  </footer>
 
   <script>
 
@@ -279,34 +285,48 @@
     const timer = setInterval(updateTogetherTime, 1000);
 
     // 🎁 Gift Emoji Logic
-const giftEmojis = ['🍫', '🌹', '🍄', '🐠'];
+const giftImages = [
+  'images/purse.png',
+  'images/puppy.png',
+  'images/necklace.png',
+  'images/heart.png'
+];
+
 const giftButton = document.getElementById('gift-button');
 const animationArea = document.getElementById('gift-animation-area');
 const giftBox = document.getElementById('gift-box-area');
-const usedEmojis = new Set();
+const usedIndexes = new Set();
 
 giftButton.addEventListener('click', () => {
-  // Stop if already 4 unique gifts
-  if (usedEmojis.size >= 4) return;
+  if (usedIndexes.size >= giftImages.length) return;
 
-  // Filter to get unused emojis
-  const remainingEmojis = giftEmojis.filter(e => !usedEmojis.has(e));
-  if (remainingEmojis.length === 0) return;
-
-  // Disable button temporarily
   giftButton.disabled = true;
 
-  const emoji = remainingEmojis[Math.floor(Math.random() * remainingEmojis.length)];
-  usedEmojis.add(emoji);
+  // Find a random unused index
+  const remainingIndexes = giftImages
+    .map((_, index) => index)
+    .filter(i => !usedIndexes.has(i));
 
-  // Create and animate emoji
+  if (remainingIndexes.length === 0) return;
+
+  const randomIndex = remainingIndexes[Math.floor(Math.random() * remainingIndexes.length)];
+  usedIndexes.add(randomIndex);
+  const imageSrc = giftImages[randomIndex];
+
   animationArea.innerHTML = '';
-  const gift = document.createElement('div');
+  const gift = document.createElement('img');
   gift.className = 'gift-emoji';
-  gift.textContent = emoji;
+  gift.src = imageSrc;
+  gift.style.width = '100px';
   animationArea.appendChild(gift);
 
-  // 🎉 Confetti
+  // Play sounds
+  document.getElementById("sound-fly").currentTime = 0;
+  document.getElementById("sound-fly").play();
+  document.getElementById("sound-open").currentTime = 0;
+  document.getElementById("sound-open").play();
+
+  // Confetti
   confetti({
     particleCount: 80,
     spread: 60,
@@ -314,24 +334,28 @@ giftButton.addEventListener('click', () => {
     colors: ['#ff4f81', '#ffd1dc', '#fff', '#ff69b4']
   });
 
+  // Delay then place in box
   setTimeout(() => {
-    const placedGift = document.createElement('span');
-    placedGift.textContent = emoji;
-    placedGift.style.cssText = `
-      font-size: 5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `;
+    const placedGift = document.createElement('img');
+    placedGift.src = imageSrc;
+    placedGift.style.width = '80px';
+    placedGift.style.height = 'auto';
+    placedGift.style.animation = 'popIn 0.4s ease-out';
     giftBox.appendChild(placedGift);
 
-    // Remove animation
+    // Play pop sound
+    const popSound = document.getElementById("sound-popup");
+    popSound.volume = 0.2;
+    popSound.currentTime = 0;
+    popSound.play();
+
     if (animationArea.contains(gift)) {
       animationArea.removeChild(gift);
     }
 
-    if (usedEmojis.size >= 4) {
+    if (usedIndexes.size >= giftImages.length) {
       document.getElementById('gift-message').style.display = 'block';
+      document.getElementById("sound-pop").play();
       giftButton.disabled = true;
       giftButton.style.opacity = '0.6';
       giftButton.style.cursor = 'not-allowed';
@@ -340,6 +364,7 @@ giftButton.addEventListener('click', () => {
     }
   }, 1500);
 });
+
 
 
 
@@ -366,6 +391,8 @@ giftButton.addEventListener('click', () => {
     for (let i = 0; i < 30; i++) {
       createRandomStar();
     }
+
+
   </script>
 </body>
 </html>

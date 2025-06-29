@@ -10,7 +10,7 @@ header {
     background: linear-gradient(to right, #f62a2a, #7a0707);
   background-size: 400% 400%;
   animation: headerGradient 15s ease infinite;
-  padding: 1.2rem 2rem;
+  padding: 1.1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -183,7 +183,7 @@ footer {
 }
 
 .music-control button {
-  background: #ff4081;
+  background: #e91e63;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -194,7 +194,7 @@ footer {
 }
 
 .music-control button:hover {
-  background-color: #d81b60;
+  background-color: #c2185b;
 }
 
 /* Heart animation container */
@@ -447,7 +447,7 @@ header, main {
   align-items: center;
   gap: 40px;
   flex-wrap: wrap;
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 
 .memory-card {

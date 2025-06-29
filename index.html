@@ -10,16 +10,18 @@
 </head>
 <body>
   <header>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="love_quiz.html">Love Quiz</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="letter.html">Letter</a></li>
-        <li><a href="surprise.html">Surprise</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="love_quiz.html">Quiz</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="letter.html">Letter</a></li>
+      <li><a href="surprise.html">Surprise</a></li>
+    </ul>
+  </nav>
+</header>
+
+
 
   <!-- Add the 3D heart SVG here -->
   <script>
@@ -155,7 +157,7 @@ function createRandomStar() {
    <div class="caption-overlay">Crazy you 😍</div>
   </div>
 
-  <div class="photo-card angle-center">
+  <div class="photo-card angle-right">
     <img src="images/3.jpeg" alt="Memory 2" class="memory-card" />
     <div class="caption-overlay">Kokil kanthil Apsara 😘</div>
   </div>
@@ -166,18 +168,18 @@ function createRandomStar() {
     <section class="welcome-section">
       <h1>Happy Anniversary BABY 💝!</h1>
       <p>Celebrating our love and memories.</p>
-  <button id="readMoreBtn">Love Quiz❤️</button>
+  <button id="readMoreBtn">Love Quiz ❤️</button>
 
-  <div class="music-control">
-    <button id="musicToggle">Play Music 🎵</button>
-    <audio id="bgMusic" loop>
-      <source src="romantic-music.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-  </div>
+        <div class="music-control" style="display: inline;">
+          <button id="musicToggle">Play Music 🎵</button>
+          <audio id="bgMusic" loop>
+            <source src="audio/m1.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
 </div>
 
-  <div class="photo-card angle-right">
+  <div class="photo-card angle-left">
     <img src="images/4.jpeg" alt="Memory 2" class="memory-card" />
     <div class="caption-overlay">Date 🥰</div>
   </div>
@@ -193,26 +195,14 @@ function createRandomStar() {
     <div id="heart-container"></div>
   </main>
 
-  <footer>
-    <p>Made with ❤️ for you.</p>
-  </footer>
 
   <script>
 
         document.getElementById("readMoreBtn").addEventListener("click", function () {
   window.location.href = "love_quiz.html";
 });
-    // Slideshow logic
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    function showSlides() {
-      slides.forEach(slide => (slide.style.display = 'none'));
-      slideIndex++;
-      if (slideIndex > slides.length) slideIndex = 1;
-      slides[slideIndex - 1].style.display = 'block';
-      setTimeout(showSlides, 3000); // Change every 3 seconds
-    }
-    showSlides();
+
+
 
     // Read More button toggle
     const readMoreBtn = document.getElementById('readMoreBtn');
@@ -228,17 +218,28 @@ function createRandomStar() {
     });
 
     // Music toggle
-    const musicToggle = document.getElementById('musicToggle');
-    const bgMusic = document.getElementById('bgMusic');
-    musicToggle.addEventListener('click', () => {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        musicToggle.textContent = 'Pause Music ⏸️';
-      } else {
-        bgMusic.pause();
-        musicToggle.textContent = 'Play Music 🎵';
-      }
+  const musicToggle = document.getElementById("musicToggle");
+  const bgMusic = document.getElementById("bgMusic");
+
+  // This enables sound on first interaction (required by browser autoplay policy)
+  window.addEventListener("click", () => {
+    bgMusic.volume = 0.3;
+    bgMusic.play().then(() => {
+      musicToggle.textContent = 'Pause Music ⏸️';
+    }).catch((err) => {
+      console.warn("Autoplay prevented:", err);
     });
+  }, { once: true });
+
+  musicToggle.addEventListener("click", () => {
+    if (bgMusic.paused) {
+      bgMusic.play();
+      musicToggle.textContent = "Pause Music ⏸️";
+    } else {
+      bgMusic.pause();
+      musicToggle.textContent = "Play Music 🎵";
+    }
+  });
 
 
 
@@ -259,10 +260,6 @@ function createRandomStar() {
         heart.remove();
     });
     }
-
-    // Create a new heart every 300ms
-    setInterval(createBubblyHeart, 300);
-    
   </script>
 </body>
 
